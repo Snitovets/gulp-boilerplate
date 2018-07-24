@@ -1,0 +1,16 @@
+{
+  "name": "gulp-templates",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://snitovets@bitbucket.org/snitovets/gulp-templates.git"
+  },
+  "author": "Vitaly Snitovets",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/snitovets/gulp-templates#readme"
+}
