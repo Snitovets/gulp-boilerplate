@@ -1,0 +1,92 @@
+%our-advantages-line {
+  @extend %pseudo-absolute;
+  border: 1px solid rgba(black, 0.1);
+  width: 300px;
+  top: 39px;
+}
+
+.our-advantages {
+  padding-top: 115px;
+
+  &-content {
+    h3 {
+      font: {
+        family: "Lato-Bold";
+        size: 16px;
+      }
+      margin: 0;
+      margin-top: 12px;
+      text-align: center;
+      line-height: 48px;
+      color: black;
+    }
+
+    p {
+      font: {
+        family: "Lato-Medium";
+        size: 13px;
+      }
+      text-align: center;
+      line-height: 18px;
+      color: rgba(black, 0.75);
+    }
+
+    .row {
+      position: relative;
+      margin: 0;
+
+      &:before {
+        @extend %our-advantages-line;
+        left: 200px;
+      }
+
+      &:after {
+        @extend %our-advantages-line;
+        left: 639px;
+      }
+    }
+
+    article {
+      padding: 0;
+
+      &:first-child {
+        padding: {
+          left: 36px;
+          right: 135px;
+        }
+
+        .our-advantages-image {
+          width: 60px;
+          height: 82px;
+          background-position: -463px -214px;
+        }
+      }
+
+      &:nth-child(2) {
+        .our-advantages-image {
+          width: 82px;
+          height: 82px;
+          background-position: -463px -10px;
+        }
+      }
+
+      &:last-child {
+        padding: {
+          left: 135px;
+          right: 36px;
+        }
+
+        .our-advantages-image {
+          width: 72px;
+          height: 82px;
+          background-position: -463px -112px;
+        }
+      }
+    }
+  }
+
+  &-image {
+    @extend %spritesheet;
+    @extend %align-center;
+  }
+}

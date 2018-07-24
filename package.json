@@ -12,5 +12,17 @@
   },
   "author": "Vitaly Snitovets",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/snitovets/gulp-templates#readme"
+  "homepage": "https://bitbucket.org/snitovets/gulp-templates#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-debug": "^4.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
+    "pump": "^3.0.0"
+  }
 }

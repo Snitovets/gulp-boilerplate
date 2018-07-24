@@ -1,0 +1,41 @@
+.article-title {
+  @extend %text-align;
+
+  position: relative;
+  font: {
+    family: "RadomirTinkov-Gilroy-ExtraBold";
+    size: 30px;
+  }
+  margin-bottom: $title-margin;
+  line-height: 54px;
+  color: $black;
+
+  &:after {
+    @extend %align-center;
+
+    content: "";
+    display: block;
+    text-align: center;
+    background-color: $light-blue;
+    width: 100px;
+    height: 4px;
+  }
+}
+
+.about-us {
+  .article-title {
+    margin-bottom: $title-margin + 30;
+  }
+}
+
+.our-advantages {
+  .article-title {
+    margin-bottom: $title-margin + 10;
+  }
+}
+
+.certificate {
+  .article-title {
+    margin-bottom: $title-margin + 10;
+  }
+}

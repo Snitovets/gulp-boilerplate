@@ -1,0 +1,84 @@
+.about-us {
+  padding-top: 95px;
+
+  &-video {
+    @extend %align-center;
+    width: 367px;
+    height: 191px;
+    position: relative;
+  }
+
+  &-img {
+    position: relative;
+    background: url("../imgs/inspiration.jpg") no-repeat;
+    width: 540px;
+    height: 504px;
+    margin: {
+      top: 6px;
+      right: 40px;
+    }
+
+    &:before {
+      @extend %pseudo-absolute;
+      top: 88px;
+      left: -58px;
+      background-image: url("../imgs/pics.png");
+      width: 680px;
+      height: 317px;
+    }
+  }
+
+  .video-1 {
+    background: url("../imgs/our-plans-video-1.jpg") no-repeat;
+    margin-right: 16px;
+  }
+
+  .video-2 {
+    background: url("../imgs/our-plans-video-2.jpg") no-repeat;
+    margin-left: 16px;
+  }
+
+  .paragraph {
+    font: {
+      family: "Lato-Regular";
+      weight: 600;
+      size: 16px;
+    }
+    color: black;
+    width: 485px;
+    margin: 0;
+
+    &-first {
+      line-height: 25px;
+    }
+
+    &-second {
+      margin-top: 20px;
+      line-height: 27px;
+    }
+
+    &-third {
+      margin-top: 20px;
+      line-height: 27px;
+    }
+  }
+
+  &-description {
+    position: absolute;
+    bottom: 20px;
+    left: 28px;
+    color: $white;
+    font: {
+      family: "Lato-Black";
+      size: 17px;
+    }
+    line-height: 28px;
+  }
+
+  .row {
+    &:last-child {
+      margin: 0;
+      margin-top: 125px;
+    }
+  }
+}

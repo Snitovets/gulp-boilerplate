@@ -1,0 +1,205 @@
+.rounded-btn {
+  @extend %text-align;
+  @include transition;
+  position: relative;
+  display: inline-block;
+  font: {
+    family: "Lato-Medium";
+    variant: small-caps;
+    size: 23px;
+  }
+  line-height: 53px;
+  width: 240px;
+  height: 60px;
+  border: 2px solid white;
+  border-radius: 60px;
+  color: rgba(255, 255, 255, 0.75);
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+}
+
+.login-btn {
+  @extend %text-align;
+  font: {
+    family: "Lato-Medium";
+    size: 12px;
+  }
+  color: $white;
+  padding: 9.5px 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.lang-btn {
+  @extend %text-align;
+  position: relative;
+  font: {
+    family: "Lato-Heavy";
+    size: 10px;
+  }
+  line-height: 24px;
+  color: white;
+  width: 28px;
+  height: 27px;
+  margin-right: 13px;
+  border: 2px solid white;
+
+  &:after {
+    @extend %pseudo-absolute;
+    border: {
+      right: 1px solid $white;
+      bottom: 1px solid $white;
+    }
+    width: 6px;
+    height: 6px;
+    bottom: 9px;
+    right: -16px;
+    transform: rotate(45deg);
+  }
+
+  &:before {
+    @extend %pseudo-absolute;
+    width: 20px;
+    height: 20px;
+    right: -22px;
+    bottom: 1px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.partner-btn {
+  @extend .rounded-btn;
+  margin-top: 50px;
+}
+
+.play-btn {
+  @extend %pseudo-absolute;
+  @include transition(0.15s, ease-in-out);
+  background: url("../imgs/play-btn.svg") no-repeat;
+  width: 119px;
+  height: 119px;
+  top: 36px;
+  left: 125px;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(0.925);
+  }
+}
+
+.holding-content-watch-btn {
+  @extend %no-select;
+  @include linear-gradient(#11365c, #0263a3);
+  position: relative;
+  font: {
+    family: "RadomirTinkov-Gilroy-ExtraBold";
+    size: 18px;
+  }
+  text-transform: uppercase;
+  line-height: 42px;
+  padding-left: 22px;
+  margin-top: 25px;
+  width: 262px;
+  height: 42px;
+  letter-spacing: 1px;
+  color: $white;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:before {
+    @extend %pseudo-absolute;
+    background: url("../imgs/play-btn.svg") no-repeat;
+    width: 27px;
+    height: 27px;
+    top: 8px;
+    right: 23px;
+  }
+}
+
+.pdf-materials-btn {
+  @extend .rounded-btn;
+  @extend %align-center;
+  display: block;
+  font: {
+    family: "Lato-Light";
+    size: 16px;
+  }
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 47.5px;
+  width: 153px;
+  height: 49px;
+}
+
+.news-play-btn {
+  @extend %pseudo-absolute;
+  @include transition(0.15s, ease-in-out);
+  background: url("../imgs/play-btn.svg") no-repeat;
+  width: 47px;
+  height: 47px;
+  bottom: 48px;
+  left: 26px;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(0.925);
+  }
+}
+
+.modal-close-btn {
+  @extend %reset-button;
+  padding: 2px;
+
+  &:before {
+    content: "";
+    display: block;
+    background: url("../imgs/close-btn.svg") center center no-repeat;
+    height: 15px;
+    width: 15px;
+  }
+}
+
+.modal-close-footer-btn {
+  @extend .modal-close-btn;
+  width: 85px;
+  height: 50px;
+  padding: 0;
+  position: relative;
+
+  &:before {
+    @extend %pseudo-absolute;
+    top: 16.9px;
+    left: -2px;
+  }
+
+  p {
+    display: inline-block;
+    font: {
+      family: "Lato-Black";
+      size: 11px;
+    }
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    line-height: 25px;
+    padding-left: 18px;
+    margin-bottom: 1px;
+    color: #c3c3c3;
+  }
+}
+
+.check-btn {
+  @extend .rounded-btn;
+  border-color: black;
+  color: black;
+  &:hover {
+    @extend .check-btn;
+    border-color: black;
+    color: black;
+  }
+}

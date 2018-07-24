@@ -1,0 +1,16 @@
+@mixin font($font-name, $format: "ttf") {
+  @font-face {
+    font-family: "#{$font-name}";
+    src: url("../fonts/#{$font-name}.#{$format}");
+  }
+}
+
+@include font("Lato-Black");
+@include font("Lato-Heavy");
+@include font("Lato-Bold");
+@include font("Lato-Semibold");
+@include font("Lato-Medium");
+@include font("Lato-Regular");
+@include font("Lato-Light");
+@include font("RadomirTinkov-Gilroy-ExtraBold", "otf");
+@include font("RadomirTinkov-Gilroy-Light", "otf");

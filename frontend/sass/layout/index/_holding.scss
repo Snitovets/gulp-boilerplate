@@ -1,0 +1,94 @@
+.holding {
+  padding-top: 115px;
+
+  &-content {
+    figure {
+      width: 262px;
+      height: 289px;
+      background-color: $white;
+      box-shadow: 0 0 90px rgba(black, 0.07);
+    }
+
+    figcaption {
+      h2 {
+        @extend %align-center;
+        font: {
+          family: "RadomirTinkov-Gilroy-ExtraBold";
+          size: 29px;
+        }
+        line-height: 32px;
+        padding: 44px 0;
+        text-transform: uppercase;
+        text-align: center;
+        color: $white;
+        letter-spacing: 1px;
+      }
+
+      p {
+        font: {
+          family: "Lato-Medium";
+          size: 15px;
+        }
+        line-height: 25px;
+        text-transform: uppercase;
+        text-align: center;
+        color: #080808;
+      }
+    }
+
+    &-image {
+      width: 262px;
+      height: 150px;
+    }
+
+    article {
+      &:first-child {
+        .holding-content-image {
+          background: url("../imgs/holding-pic-1.jpg") no-repeat;
+        }
+
+        figcaption {
+          p {
+            padding-top: 35px;
+          }
+        }
+      }
+
+      &:nth-child(2) {
+        .holding-content-image {
+          background: url("../imgs/holding-pic-2.jpg") no-repeat;
+        }
+
+        figcaption {
+          p {
+            padding-top: 35px;
+          }
+        }
+      }
+
+      &:nth-child(3) {
+        .holding-content-image {
+          background: url("../imgs/holding-pic-3.jpg") no-repeat;
+        }
+
+        figcaption {
+          p {
+            padding-top: 47px;
+          }
+        }
+      }
+
+      &:last-child {
+        .holding-content-image {
+          background: url("../imgs/holding-pic-4.jpg") no-repeat;
+        }
+
+        figcaption {
+          p {
+            padding-top: 47px;
+          }
+        }
+      }
+    }
+  }
+}

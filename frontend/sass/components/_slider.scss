@@ -1,0 +1,49 @@
+%slider {
+  input[type="radio"] {
+    display: none;
+  }
+
+  .slider-controls {
+    position: relative;
+    font-size: 0;
+    @extend %align-center;
+
+    label {
+      @extend %pseudo-absolute;
+      width: 26px;
+      height: 26px;
+      margin: 0;
+      border: 10px solid $white;
+      border-radius: 50%;
+      background-color: #2d2d2d;
+      cursor: pointer;
+
+      &:first-child {
+        left: -50px;
+      }
+
+      &:nth-child(2) {
+        left: -11px;
+      }
+
+      &:last-child {
+        left: 28px;
+      }
+    }
+  }
+
+  #btn-1:checked ~ .slider-controls label[for="btn-1"],
+  #btn-2:checked ~ .slider-controls label[for="btn-2"],
+  #btn-3:checked ~ .slider-controls label[for="btn-3"] {
+    @include transition(0.2s, ease-in-out, box-shadow);
+    background-color: #88bbf2;
+    box-shadow: 0 0 0 2.5px #88bbf2;
+  }
+}
+
+.news-slider {
+  @extend %slider;
+
+  @extend %align-center;
+  padding-top: 40px;
+}

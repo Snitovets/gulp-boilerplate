@@ -1,0 +1,23 @@
+@mixin linear-gradient($from, $to) {
+  background: $to;
+  background: -moz-linear-gradient(left, $from 0%, $to 100%);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(0%, $from),
+    color-stop(100%, $to)
+  );
+  background: -webkit-linear-gradient(left, $from 0%, $to 100%);
+  background: -o-linear-gradient(left, $from 0%, $to 100%);
+  background: -ms-linear-gradient(left, $from 0%, $to 100%);
+  background: linear-gradient(to right, $from 0%, $to 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#{$from}, endColorstr=#{$to});
+}
+
+@mixin transition($duration: 0.2s, $timing-function: ease, $permission: all) {
+  -webkit-transition: $duration $timing-function $permission;
+  -o-transition: $duration $timing-function $permission;
+  -moz-transition: $duration $timing-function $permission;
+  transition: $duration $timing-function $permission;
+}

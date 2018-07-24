@@ -1,0 +1,22 @@
+p,
+figure {
+  margin: 0;
+}
+
+.container,
+.col {
+  padding: 0;
+}
+
+a {
+  color: white;
+
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+ul {
+  list-style: none;
+}

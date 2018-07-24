@@ -1,0 +1,132 @@
+.our-plans {
+  padding-top: 97px;
+
+  &-border {
+    text-align: center;
+    width: 100%;
+    height: 255px;
+  }
+
+  &-icon {
+    @extend %spritesheet;
+    @extend %align-center;
+  }
+
+  &-content {
+    background: url("../imgs/our-plans.jpg") center center no-repeat;
+    background-size: cover;
+    color: $white;
+    font: {
+      family: "Lato-Semibold";
+      size: 11.31px;
+    }
+    line-height: 16.97px;
+    height: 628px;
+    padding: 62px 0;
+
+    .row {
+      &:first-child {
+        .our-plans-icon {
+          margin: {
+            top: 30px;
+            bottom: 30px;
+          }
+        }
+
+        .our-plans-border {
+          &:first-child {
+            @extend %white-faded-right-border;
+
+            .our-plans-icon {
+              margin-bottom: 40px;
+              width: 95px;
+              height: 86px;
+              background-position: -122px -149px;
+            }
+          }
+
+          &:nth-child(2) {
+            @extend %white-faded-right-border;
+
+            .our-plans-icon {
+              width: 73px;
+              height: 96px;
+              background-position: -370px -10px;
+            }
+          }
+
+          &:nth-child(3) {
+            @extend %white-faded-right-border;
+
+            .our-plans-icon {
+              width: 75px;
+              height: 96px;
+              background-position: -264px -127px;
+            }
+          }
+
+          &:last-child {
+            .our-plans-icon {
+              width: 92px;
+              height: 95px;
+              background-position: -10px -149px;
+            }
+          }
+        }
+      }
+
+      &:last-child {
+        .our-plans-icon {
+          margin: {
+            top: 55px;
+            bottom: 30px;
+          }
+        }
+
+        .our-plans-border {
+          &:first-child {
+            @extend %white-faded-top-right-border;
+
+            .our-plans-icon {
+              width: 95px;
+              height: 96px;
+              background-position: -149px -10px;
+            }
+          }
+
+          &:nth-child(2) {
+            @extend %white-faded-top-right-border;
+
+            .our-plans-icon {
+              width: 86px;
+              height: 97px;
+              background-position: -264px -10px;
+            }
+          }
+
+          &:nth-child(3) {
+            @extend %white-faded-top-right-border;
+
+            .our-plans-icon {
+              margin-bottom: 40px;
+              width: 95px;
+              height: 86px;
+              background-position: -10px -264px;
+            }
+          }
+
+          &:last-child {
+            border-top: 1px solid rgba(white, 0.5);
+
+            .our-plans-icon {
+              margin-bottom: 45px;
+              width: 95px;
+              height: 81px;
+              background-position: -125px -264px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

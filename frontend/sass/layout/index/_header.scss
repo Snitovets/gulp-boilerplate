@@ -1,0 +1,27 @@
+header {
+  height: 668px;
+  background: url("../imgs/banner.jpg") center center no-repeat;
+  background-size: cover;
+}
+
+.header-banner {
+  text-align: center;
+  color: $white;
+  margin-top: 190px;
+
+  h1 {
+    font: {
+      family: "RadomirTinkov-Gilroy-ExtraBold";
+      size: 90px;
+    }
+    line-height: 66px;
+  }
+
+  p {
+    font: {
+      family: "Lato-Medium";
+      size: 25px;
+    }
+    line-height: 48px;
+  }
+}
