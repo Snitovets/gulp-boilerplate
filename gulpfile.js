@@ -2,7 +2,6 @@
 
 const gulp = require("gulp"),
   sass = require("gulp-sass"),
-  debug = require("gulp-debug"),
   concat = require("gulp-concat"),
   minify = require("gulp-clean-css"),
   jscompress = require("gulp-minify"),
@@ -10,43 +9,42 @@ const gulp = require("gulp"),
   imageResize = require("gulp-image-resize"),
   imageMin = require("gulp-imagemin"),
   htmlMin = require("gulp-htmlmin"),
+  notify = require("gulp-notify"),
+  browserSync = require("browser-sync").create(),
   gulpIf = require("gulp-if"),
   rename = require("gulp-rename"),
   newer = require("gulp-newer"),
-  pump = require("pump"),
-  del = require("del"),
-  browserSync = require("browser-sync").create();
+  multipipe = require("multipipe"),
+  del = require("del");
 
 const isDev = !process.env.NODE_ENV || process.env.NODE_ENV == "development";
 
 gulp.task("html", () => {
-  return pump([
-    gulp.src("frontend/html/*.html", {
-      since: gulp.lastRun("html")
-    }),
+  return multipipe([
+    gulp.src("frontend/*.html", { since: gulp.lastRun("html") }),
     newer("public"),
     gulpIf(!isDev, htmlMin({ collapseWhitespace: true })),
     gulp.dest("public")
-  ]);
+  ]).on("error", notify.onError());
 });
 
 gulp.task("sass", () => {
-  return pump([
+  return multipipe([
     gulp.src("frontend/sass/*.scss", {
       since: gulp.lastRun("sass")
     }),
     newer("public"),
     gulpIf(isDev, sourcemaps.init()),
-    sass().on("error", sass.logError),
+    sass(),
     gulpIf(!isDev, minify({ compatibility: "ie8" })),
     gulpIf(isDev, sourcemaps.write(".")),
     gulp.dest("public/css")
-  ]);
+  ]).on("error", notify.onError());
 });
 
 gulp.task("imgs-compress", () => {
   if (gulp.src("frontend/imgs/*.svg")) {
-    pump([
+    multipipe([
       gulp.src("frontend/imgs/*.svg", {
         base: "frontend",
         since: gulp.lastRun("imgs-compress")
@@ -59,9 +57,9 @@ gulp.task("imgs-compress", () => {
         svgoPlugins: [{ removeViewBox: true }]
       }),
       gulp.dest("public")
-    ]);
+    ]).on("error", notify.onError());
   }
-  return pump([
+  return multipipe([
     gulp.src("frontend/imgs/*.{jpg,png,gif}", {
       base: "frontend",
       since: gulp.lastRun("imgs")
@@ -69,11 +67,11 @@ gulp.task("imgs-compress", () => {
     newer("public"),
     imageResize({ width: 1920 }),
     gulp.dest("public")
-  ]);
+  ]).on("error", notify.onError());
 });
 
 gulp.task("imgs", () => {
-  return pump([
+  return multipipe([
     gulp.src("frontend/imgs/*.{jpg,png,gif,svg}", {
       base: "frontend",
       since: gulp.lastRun("imgs")
@@ -86,11 +84,11 @@ gulp.task("imgs", () => {
       svgoPlugins: [{ removeViewBox: true }]
     }),
     gulp.dest("public")
-  ]);
+  ]).on("error", notify.onError());
 });
 
 gulp.task("js", () => {
-  return pump([
+  return multipipe([
     gulp.src("frontend/js/*.js", {
       sinse: gulp.lastRun("js")
     }),
@@ -98,15 +96,15 @@ gulp.task("js", () => {
     concat("index.js"),
     gulpIf(!isDev, jscompress()),
     gulp.dest("public/js")
-  ]);
+  ]).on("error", notify.onError());
 });
 
 gulp.task("fonts", () => {
-  return pump([
+  return multipipe([
     gulp.src("frontend/fonts/*.*", { base: "frontend" }),
     newer("public"),
     gulp.dest("public")
-  ]);
+  ]).on("error", notify.onError());
 });
 
 gulp.task("clean", () => {
@@ -118,7 +116,10 @@ gulp.task("serve", () => {
     server: "public"
   });
 
-  browserSync.watch("public/**/*.*").on("change", browserSync.reload);
+  browserSync
+    .watch("public/**/*.*")
+    .on("change", browserSync.reload)
+    .on("error", notify.onError());
 });
 
 gulp.task(
@@ -127,10 +128,10 @@ gulp.task(
 );
 
 gulp.task("watch", () => {
-  gulp.watch("frontend/html/**/*.html", gulp.series("html"));
+  gulp.watch("frontend/*.html", gulp.series("html"));
   gulp.watch("frontend/sass/**/*.scss", gulp.series("sass"));
   gulp.watch("frontend/js/**/*.js", gulp.series("js"));
-  gulp.watch("frontend/imgs/**/*.{jpg,png,gif}", gulp.series("imgs"));
+  gulp.watch("frontend/imgs/**/*.*", gulp.series("imgs"));
   gulp.watch("frontend/fonts/**/*.*", gulp.series("fonts"));
 });
 
