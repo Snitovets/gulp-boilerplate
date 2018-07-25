@@ -14,14 +14,14 @@ const gulp = require("gulp"),
   rename = require("gulp-rename"),
   newer = require("gulp-newer"),
   pump = require("pump"),
-  del = require("del");
+  del = require("del"),
+  browserSync = require("browser-sync").create();
 
 const isDev = !process.env.NODE_ENV || process.env.NODE_ENV == "development";
 
 gulp.task("html", () => {
   return pump([
     gulp.src("frontend/html/*.html", {
-      base: "frontend",
       since: gulp.lastRun("html")
     }),
     newer("public"),
@@ -113,6 +113,14 @@ gulp.task("clean", () => {
   return del("public");
 });
 
+gulp.task("serve", () => {
+  browserSync.init({
+    server: "public"
+  });
+
+  browserSync.watch("public/**/*.*").on("change", browserSync.reload);
+});
+
 gulp.task(
   "build",
   gulp.series("clean", gulp.parallel("html", "sass", "imgs", "js", "fonts"))
@@ -123,6 +131,7 @@ gulp.task("watch", () => {
   gulp.watch("frontend/sass/**/*.scss", gulp.series("sass"));
   gulp.watch("frontend/js/**/*.js", gulp.series("js"));
   gulp.watch("frontend/imgs/**/*.{jpg,png,gif}", gulp.series("imgs"));
+  gulp.watch("frontend/fonts/**/*.*", gulp.series("fonts"));
 });
 
-gulp.task("dev", gulp.series("build", "watch"));
+gulp.task("dev", gulp.series("build", gulp.parallel("watch", "serve")));

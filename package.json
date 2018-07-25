@@ -13,6 +13,7 @@
   "homepage": "https://bitbucket.org/snitovets/gulp-templates#readme",
   "dependencies": {},
   "devDependencies": {
+    "browser-sync": "^2.24.6",
     "del": "^3.0.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-clean-css": "^3.9.4",
