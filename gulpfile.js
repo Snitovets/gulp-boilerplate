@@ -15,6 +15,7 @@ const gulp = require("gulp"),
   rename = require("gulp-rename"),
   newer = require("gulp-newer"),
   multipipe = require("multipipe"),
+  svgSprite = require("gulp-svg-sprite"),
   del = require("del");
 
 const through2 = require("through2").obj; // for plugin creation
@@ -43,7 +44,45 @@ gulp.task("sass", () => {
   ]).on("error", notify.onError());
 });
 
-gulp.task("imgs-compress", () => {
+gulp.task("imgs", () => {
+  return multipipe([
+    gulp.src("frontend/imgs/*.*", {
+      base: "frontend",
+      since: gulp.lastRun("imgs")
+    }),
+    newer("public"),
+    imageMin({
+      interlaced: true,
+      progressive: true,
+      optimizationLevel: 5,
+      svgoPlugins: [{ removeViewBox: true }]
+    }),
+    gulpIf(
+      "*.svg",
+      multipipe([
+        svgSprite({
+          mode: {
+            css: {
+              dest: ".",
+              bust: false,
+              sprite: "sprite.svg",
+              layout: "vertical",
+              prefix: "%",
+              dimensions: true,
+              render: {
+                scss: true
+              }
+            }
+          }
+        }),
+        gulpIf("*.scss", gulp.dest("public/tmp"), gulp.dest("public/imgs"))
+      ]),
+      gulp.dest("public")
+    )
+  ]).on("error", notify.onError());
+});
+
+gulp.task("imgs:compress", () => {
   if (gulp.src("frontend/imgs/*.svg")) {
     multipipe([
       gulp.src("frontend/imgs/*.svg", {
@@ -67,23 +106,6 @@ gulp.task("imgs-compress", () => {
     }),
     newer("public"),
     imageResize({ width: 1920 }),
-    gulp.dest("public")
-  ]).on("error", notify.onError());
-});
-
-gulp.task("imgs", () => {
-  return multipipe([
-    gulp.src("frontend/imgs/*.{jpg,png,gif,svg}", {
-      base: "frontend",
-      since: gulp.lastRun("imgs")
-    }),
-    newer("public"),
-    imageMin({
-      interlaced: true,
-      progressive: true,
-      optimizationLevel: 5,
-      svgoPlugins: [{ removeViewBox: true }]
-    }),
     gulp.dest("public")
   ]).on("error", notify.onError());
 });
