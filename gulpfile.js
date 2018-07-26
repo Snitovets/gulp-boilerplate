@@ -17,6 +17,7 @@ const gulp = require("gulp"),
   multipipe = require("multipipe"),
   del = require("del");
 
+const through2 = require("through2").obj; // for plugin creation
 const isDev = !process.env.NODE_ENV || process.env.NODE_ENV == "development";
 
 gulp.task("html", () => {
@@ -136,3 +137,15 @@ gulp.task("watch", () => {
 });
 
 gulp.task("dev", gulp.series("build", gulp.parallel("watch", "serve")));
+
+gulp.task("plugin", () => {
+  return gulp
+    .src("frontend/**/*.*")
+    .pipe(
+      through2((file, enc, callback) => {
+        console.log(file);
+        callback(null, file);
+      })
+    )
+    .pipe(gulp.dest("public"));
+});
