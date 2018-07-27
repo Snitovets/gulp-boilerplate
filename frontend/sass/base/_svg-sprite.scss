@@ -1,0 +1,18 @@
+%svg-common {
+	background: url("imgs/sprite-ebe47fa7.svg") no-repeat;
+}
+
+%imgs--close-btn {
+	@extend %svg-common;
+	background-position: 0 0;
+	width: 15px;
+	height: 15px;
+}
+
+%imgs--play-btn {
+	@extend %svg-common;
+	background-position: 0 98.03921568627453%;
+	width: 56.7px;
+	height: 56.7px;
+}
+
