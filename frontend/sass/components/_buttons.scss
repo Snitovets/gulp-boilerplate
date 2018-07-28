@@ -79,7 +79,7 @@
 .play-btn {
   @extend %pseudo-absolute;
   @include transition(0.15s, ease-in-out);
-  background: url("../imgs/play-btn.svg") no-repeat;
+  @include imgs--play-btn;
   width: 119px;
   height: 119px;
   top: 36px;
@@ -114,7 +114,7 @@
 
   &:before {
     @extend %pseudo-absolute;
-    background: url("../imgs/play-btn.svg") no-repeat;
+    @include imgs--play-btn;
     width: 27px;
     height: 27px;
     top: 8px;
@@ -140,7 +140,7 @@
 .news-play-btn {
   @extend %pseudo-absolute;
   @include transition(0.15s, ease-in-out);
-  background: url("../imgs/play-btn.svg") no-repeat;
+  @include imgs--play-btn;
   width: 47px;
   height: 47px;
   bottom: 48px;
@@ -159,9 +159,7 @@
   &:before {
     content: "";
     display: block;
-    background: url("../imgs/close-btn.svg") center center no-repeat;
-    height: 15px;
-    width: 15px;
+    @include imgs--close-btn;
   }
 }
 

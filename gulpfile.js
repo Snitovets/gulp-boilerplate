@@ -15,7 +15,7 @@ const gulp = require("gulp"),
   newer = require("gulp-newer"),
   multipipe = require("multipipe"),
   svgSprite = require("gulp-svg-sprite"),
-  pngSprite = require("sprity"),
+  pngSprite = require("gulp.spritesmith"),
   rev = require("gulp-rev"),
   revReplace = require("gulp-rev-replace"),
   del = require("del");
@@ -29,7 +29,7 @@ gulp.task("html", () => {
     gulpIf(
       !isDev,
       revReplace({
-        manifest: gulp.src("manifest/css.json", { allowEmpty: true })
+        manifest: gulp.src("manifest/{css,js}.json", { allowEmpty: true })
       })
     ),
     gulpIf(!isDev, htmlMin({ collapseWhitespace: true })),
@@ -53,14 +53,19 @@ gulp.task("sass", () => {
 });
 
 gulp.task("imgs", () => {
-  const config = {
+  const configPng = {
+    imgName: "../imgs/sprite.png",
+    cssName: "_png-sprite.scss"
+  };
+
+  const configSvg = {
     mode: {
       css: {
         dest: ".",
         bust: !isDev,
-        sprite: "imgs/sprite.svg",
+        sprite: "../imgs/sprite.svg",
         layout: "vertical",
-        prefix: "%%",
+        prefix: "@mixin %s",
         dimensions: true,
         render: {
           scss: {
@@ -75,7 +80,6 @@ gulp.task("imgs", () => {
     gulp.src("frontend/imgs/*.*", {
       base: "frontend"
     }),
-    newer("public"),
     imageMin({
       interlaced: true,
       progressive: true,
@@ -83,12 +87,27 @@ gulp.task("imgs", () => {
       svgoPlugins: [{ removeViewBox: true }]
     }),
     gulpIf(
+      "*.png",
+      multipipe([
+        pngSprite(configPng),
+        gulpIf(
+          "*.scss",
+          gulp.dest("frontend/sass/abstracts/generates"),
+          gulp.dest("public/imgs")
+        )
+      ])
+    ),
+    gulpIf(
       "*.svg",
       multipipe([
-        svgSprite(config),
-        gulpIf("*.scss", gulp.dest("frontend/sass/base"), gulp.dest("public"))
+        svgSprite(configSvg),
+        gulpIf(
+          "*.scss",
+          gulp.dest("frontend/sass/abstracts/generates"),
+          gulp.dest("public/imgs")
+        )
       ]),
-      gulp.dest("public")
+      gulpIf("*.jpg", gulp.dest("public"))
     )
   ]).on("error", notify.onError());
 });
@@ -122,12 +141,17 @@ gulp.task("imgs:compress", () => {
 });
 
 gulp.task("js", () => {
+  let page = "index";
+
   return multipipe([
     gulp.src("frontend/js/*.js"),
     newer("public"),
-    concat("index.js"),
-    jscompress(),
-    gulp.dest("public/js")
+    gulpIf(isDev, sourcemaps.init()),
+    concat(`${page}.js`),
+    gulpIf(isDev, sourcemaps.write(".")),
+    gulpIf(!isDev, multipipe([jscompress(), rev()])),
+    gulp.dest("public/js"),
+    multipipe([rev.manifest("js.json"), gulp.dest("manifest")])
   ]).on("error", notify.onError());
 });
 
@@ -135,8 +159,8 @@ gulp.task("js:libs", () => {
   return multipipe([
     gulp.src("frontend/js/libs/*.js"),
     newer("public"),
-    concat("libs.js"),
     jscompress(),
+    concat("libs.js"),
     gulp.dest("public/js")
   ]).on("error", notify.onError());
 });
@@ -150,7 +174,7 @@ gulp.task("fonts", () => {
 });
 
 gulp.task("clean", () => {
-  return del("public");
+  return del(["public", "manifest"]);
 });
 
 gulp.task("serve", () => {
