@@ -40,7 +40,7 @@ gulp.task("html", () => {
 
 gulp.task("sass", () => {
   return multipipe([
-    gulp.src("frontend/sass/*.scss", {
+    gulp.src("frontend/sass/main.scss", {
       since: gulp.lastRun("sass")
     }),
     newer("public"),
@@ -92,22 +92,14 @@ gulp.task("imgs", () => {
       multipipe([
         pngSprite(configPng),
         gulpIf(!isDev, spriteSmash()),
-        gulpIf(
-          "*.scss",
-          gulp.dest("frontend/sass/abstracts/generates"),
-          gulp.dest("public/imgs")
-        )
+        gulpIf("*.scss", gulp.dest("tmp/sass"), gulp.dest("public/imgs"))
       ])
     ),
     gulpIf(
       "*.svg",
       multipipe([
         svgSprite(configSvg),
-        gulpIf(
-          "*.scss",
-          gulp.dest("frontend/sass/abstracts/generates"),
-          gulp.dest("public/imgs")
-        )
+        gulpIf("*.scss", gulp.dest("tmp/sass"), gulp.dest("public/imgs"))
       ]),
       gulpIf("*.jpg", gulp.dest("public"))
     )
@@ -176,7 +168,7 @@ gulp.task("fonts", () => {
 });
 
 gulp.task("clean", () => {
-  return del(["public", "manifest"]);
+  return del(["public", "manifest", "tmp"]);
 });
 
 gulp.task("serve", () => {
