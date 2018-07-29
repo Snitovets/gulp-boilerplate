@@ -19,10 +19,6 @@
   -ms-user-select: none;
 }
 
-%spritesheet {
-  background: url("../imgs/spritesheet.png") no-repeat;
-}
-
 %pseudo-absolute {
   content: "";
   position: absolute;
@@ -30,32 +26,4 @@
 
 %white-faded-right-border {
   border-right: 1px solid rgba(white, 0.5);
-}
-
-%white-faded-top-right-border {
-  border-top: 1px solid rgba(white, 0.5);
-  border-right: 1px solid rgba(white, 0.5);
-}
-
-%reset-button {
-  border: none;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  overflow: visible;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-
-  &:focus {
-    outline: none;
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
 }
