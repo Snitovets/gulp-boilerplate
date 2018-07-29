@@ -16,6 +16,7 @@ const gulp = require("gulp"),
   multipipe = require("multipipe"),
   svgSprite = require("gulp-svg-sprite"),
   pngSprite = require("gulp.spritesmith"),
+  spriteSmash = require("gulp-spritesmash"),
   rev = require("gulp-rev"),
   revReplace = require("gulp-rev-replace"),
   del = require("del");
@@ -90,6 +91,7 @@ gulp.task("imgs", () => {
       "*.png",
       multipipe([
         pngSprite(configPng),
+        gulpIf(!isDev, spriteSmash()),
         gulpIf(
           "*.scss",
           gulp.dest("frontend/sass/abstracts/generates"),
@@ -159,8 +161,8 @@ gulp.task("js:libs", () => {
   return multipipe([
     gulp.src("frontend/js/libs/*.js"),
     newer("public"),
-    jscompress(),
     concat("libs.js"),
+    jscompress(),
     gulp.dest("public/js")
   ]).on("error", notify.onError());
 });
